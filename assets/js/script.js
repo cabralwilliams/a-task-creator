@@ -3,19 +3,27 @@ var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 //var buttonEl = document.querySelector("#save-task");
 
-var createTaskHandler = function(event) {
+var createTaskElement = function(taskDataObj) {
+    var output = document.createElement("li");
+    output.className = "task-item";
+    var divEl = document.createElement("div");
+    divEl.className = "task-info";
+    divEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
+    output.appendChild(divEl);
+    tasksToDoEl.appendChild(output);
+}
+
+var taskFormHandler = function(event) {
     //console.log(event);
     event.preventDefault();
     var taskNameInput = document.querySelector("input[name='task-name']").value;
     var taskTypeValue = document.querySelector("select[name='task-type']").value;
-    var liToAdd = document.createElement("li");
-    liToAdd.className = "task-item";
-    var newElement = document.createElement("div");
-    newElement.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeValue +"</span>";
-    liToAdd.appendChild(newElement)
-    //newElement.textContent = taskNameInput;
-    tasksToDoEl.appendChild(liToAdd);
-    console.dir(liToAdd);
+    var taskDataObj = {
+        name: taskNameInput,
+        type: taskTypeValue
+    };
+    
+    createTaskElement(taskDataObj);
 }
 
-formEl.addEventListener("submit",createTaskHandler);
+formEl.addEventListener("submit",taskFormHandler);
