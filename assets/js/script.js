@@ -18,11 +18,15 @@ var taskFormHandler = function(event) {
     event.preventDefault();
     var taskNameInput = document.querySelector("input[name='task-name']").value;
     var taskTypeValue = document.querySelector("select[name='task-type']").value;
+    if(!taskNameInput || !taskTypeValue) {
+        alert("Please fill out the form.");
+        return false;
+    }
     var taskDataObj = {
         name: taskNameInput,
         type: taskTypeValue
     };
-    
+    formEl.reset();
     createTaskElement(taskDataObj);
 }
 
